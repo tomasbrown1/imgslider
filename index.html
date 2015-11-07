@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<style>
+			#wrapper img {
+				max-width: 500px;
+				position: absolute;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="wrapper">
+			<img src="placeholder.jpg"/>
+			<img src="placeholder.jpg"/>
+			<img src="placeholder.jpg"/>
+			<img src="placeholder.jpg"/>
+			<img src="placeholder.jpg"/>
+			<img src="placeholder.jpg"/>
+			<img src="placeholder.jpg"/>
+		</div>
+		<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+		<script>
+
+			var $img = $('#wrapper img');
+
+			$img.each(function(i) {
+				$(this).addClass('p' + i).css('margin-left', 50 * i).css('z-index', $img.length - i);
+			})
+
+			$img.on('click', function(i) {
+				$(this).siblings().addBack().removeClass().addClass(#####);
+			})
+
+			// $img.each(function(p) {
+			// 	for(i = -1; i < p; i++) {
+			// 		$(this).css('margin-left', 50 + (50 * i))
+			// 			.css('z-index', $img.length - p);
+			// 	}
+			// })
+
+			// $img.on('click', function() {
+			// 	$(this).siblings().addBack().animate({ 'left': '-=50px' }, 'slow');
+			// 	if ($(this).index() === 0) {
+			// 		$(this).fadeOut('slow');
+			// 		$('#wrapper').append($(this).detach());
+			// 		$(this).fadeIn('slow');
+			// 	}
+			// })
+
+		</script>
+	</body>
+</html>
+
