@@ -10,7 +10,7 @@
 	</head>
 	<body>
 		<div id="wrapper">
-			<img src="placeholder.jpg"/>
+			<img src="placeholder.jpg" id="u1"/>
 			<img src="placeholder.jpg"/>
 			<img src="placeholder.jpg"/>
 			<img src="placeholder.jpg"/>
@@ -23,13 +23,40 @@
 
 			var $img = $('#wrapper img');
 
-			$img.each(function(i) {
-				$(this).addClass('p' + i).css('margin-left', 50 * i).css('z-index', $img.length - i);
+			var addClasses = (function() {
+				$img.each(function(i) {
+					$(this).removeClass().addClass('p' + i);
+				})
+
+				$img.each(function(p) {
+					for (i = -1; i < p; i++){
+						var $class = $(this).attr('class').replace('p','');
+						$(this).css('margin-left', 50 * $class).css('z-index', $img.length - p);
+					}
+				})
+				return addClasses;
+			})();
+			
+
+			$img.on('click', function() {
+				if($(this).hasClass('p0')) {
+					$(this).insertAfter('img:last');
+					addClasses();
+				}
 			})
 
-			$img.on('click', function(i) {
-				$(this).siblings().addBack().removeClass().addClass(#####);
-			})
+
+			// var addClasses = (function () {
+				
+			// })();
+
+
+			// $img.on('click', function(i) {
+			// 	$(this).siblings().addBack().removeClass().animate({ 'left': '-=50px' }, 'slow');
+			// 	addClasses;
+			// })
+
+
 
 			// $img.each(function(p) {
 			// 	for(i = -1; i < p; i++) {
