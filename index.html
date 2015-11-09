@@ -2,26 +2,65 @@
 <html>
 	<head>
 		<style>
-			#wrapper img {
+			.wrapper {
+				position: relative;
+			}
+
+			.photos img {
 				max-width: 500px;
 				position: absolute;
+			}
+
+			.p0 {
+				box-shadow: 2px 2px 1px -1px #444;
+			}
+
+			.arrows {
+				position: absolute;
+				height: 50px;
+				width: 50px;
+				border-radius: 50%;
+				background-color: rgba(0, 0, 0, 0.35);
+				z-index: 100;
+				top: 100px;
+			}
+
+			#l-arrow {
+				background-image: url('arrow-left.png');
+				background-position: center;
+				background-size: 50%;
+				background-repeat: no-repeat;
+			}
+
+			#r-arrow {
+				background-image: url('arrow-right.png');
+				background-position: center;
+				background-size: 50%;
+				background-repeat: no-repeat;
+				left: 450px;
 			}
 		</style>
 	</head>
 	<body>
-		<div id="wrapper">
-			<img src="placeholder.jpg" id="u0"/>
-			<img src="placeholder.jpg" id="u1"/>
-			<img src="placeholder.jpg" id="u2"/>
-			<img src="placeholder.jpg" id="u3"/>
-			<img src="placeholder.jpg" id="u4"/>
-			<img src="placeholder.jpg" id="u5"/>
-			<img src="placeholder.jpg" id="u6"/>
+		<div class="wrapper">
+			<div class="arrows" id="l-arrow"></div>
+			<div class="arrows" id="r-arrow"></div>
+			<div class="photos">
+				<img src="placeholder.jpg" id="u0"/>
+				<img src="placeholder.jpg" id="u1"/>
+				<img src="placeholder.jpg" id="u2"/>
+				<img src="placeholder.jpg" id="u3"/>
+				<img src="placeholder.jpg" id="u4"/>
+				<img src="placeholder.jpg" id="u5"/>
+				<img src="placeholder.jpg" id="u6"/>
+			</div>
 		</div>
 		<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
 		<script>
 
-			var $img = $('#wrapper img');
+			var $img = $('.photos img');
+			var $larr = $('#l-arrow');
+			var $rarr = $('#r-arrow');
 
 			addClasses();
 
@@ -30,7 +69,7 @@
 					$(this).removeClass().addClass('p' + p);
 					for (i = -1; i < p; i++){
 						var $class = $(this).attr('class').replace('p','');
-						$(this).css('margin-left', 50 * $class).css('z-index', $img.length - p);
+						$(this).css('margin-left', 50 * $class).css('margin-top', 10 * $class).css('z-index', $img.length - p);
 					}
 				})
 			}
@@ -40,9 +79,11 @@
 				var arr = $.makeArray($prev);
 				arr.reverse();
 				$(arr).insertAfter('img:last');
-				$img = $('#wrapper img')
+				$img = $('.photos img')
 				addClasses();		
 			})
+
+
 
 		</script>
 	</body>
