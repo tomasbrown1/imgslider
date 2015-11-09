@@ -10,71 +10,38 @@
 	</head>
 	<body>
 		<div id="wrapper">
+			<img src="placeholder.jpg" id="u0"/>
 			<img src="placeholder.jpg" id="u1"/>
-			<img src="placeholder.jpg"/>
-			<img src="placeholder.jpg"/>
-			<img src="placeholder.jpg"/>
-			<img src="placeholder.jpg"/>
-			<img src="placeholder.jpg"/>
-			<img src="placeholder.jpg"/>
+			<img src="placeholder.jpg" id="u2"/>
+			<img src="placeholder.jpg" id="u3"/>
+			<img src="placeholder.jpg" id="u4"/>
+			<img src="placeholder.jpg" id="u5"/>
+			<img src="placeholder.jpg" id="u6"/>
 		</div>
 		<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
 		<script>
 
 			var $img = $('#wrapper img');
 
-			var addClasses = (function() {
-				$img.each(function(i) {
-					$(this).removeClass().addClass('p' + i);
-				})
+			addClasses();
 
+			function addClasses() {
 				$img.each(function(p) {
+					$(this).removeClass().addClass('p' + p);
 					for (i = -1; i < p; i++){
 						var $class = $(this).attr('class').replace('p','');
 						$(this).css('margin-left', 50 * $class).css('z-index', $img.length - p);
 					}
 				})
-				return addClasses;
-			})();
+			}
 			
 
 			$img.on('click', function() {
-				if($(this).hasClass('p0')) {
-					$(this).insertAfter('img:last');
-					addClasses();
-				}
+				$(this).prevAll().insertAfter('img:last');
+				$img = $('#wrapper img')
+				addClasses();		
 			})
-
-
-			// var addClasses = (function () {
-				
-			// })();
-
-
-			// $img.on('click', function(i) {
-			// 	$(this).siblings().addBack().removeClass().animate({ 'left': '-=50px' }, 'slow');
-			// 	addClasses;
-			// })
-
-
-
-			// $img.each(function(p) {
-			// 	for(i = -1; i < p; i++) {
-			// 		$(this).css('margin-left', 50 + (50 * i))
-			// 			.css('z-index', $img.length - p);
-			// 	}
-			// })
-
-			// $img.on('click', function() {
-			// 	$(this).siblings().addBack().animate({ 'left': '-=50px' }, 'slow');
-			// 	if ($(this).index() === 0) {
-			// 		$(this).fadeOut('slow');
-			// 		$('#wrapper').append($(this).detach());
-			// 		$(this).fadeIn('slow');
-			// 	}
-			// })
 
 		</script>
 	</body>
 </html>
-
