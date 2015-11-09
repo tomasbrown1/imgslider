@@ -7,7 +7,6 @@
 			}
 
 			.photos img {
-				max-width: 500px;
 				position: absolute;
 			}
 
@@ -22,22 +21,17 @@
 				border-radius: 50%;
 				background-color: rgba(0, 0, 0, 0.35);
 				z-index: 100;
-				top: 100px;
+				background-position: center;
+				background-size: 50%;
+				background-repeat: no-repeat;
 			}
 
 			#l-arrow {
 				background-image: url('arrow-left.png');
-				background-position: center;
-				background-size: 50%;
-				background-repeat: no-repeat;
 			}
 
 			#r-arrow {
 				background-image: url('arrow-right.png');
-				background-position: center;
-				background-size: 50%;
-				background-repeat: no-repeat;
-				left: 450px;
 			}
 		</style>
 	</head>
@@ -46,44 +40,68 @@
 			<div class="arrows" id="l-arrow"></div>
 			<div class="arrows" id="r-arrow"></div>
 			<div class="photos">
-				<img src="placeholder.jpg" id="u0"/>
-				<img src="placeholder.jpg" id="u1"/>
-				<img src="placeholder.jpg" id="u2"/>
-				<img src="placeholder.jpg" id="u3"/>
-				<img src="placeholder.jpg" id="u4"/>
-				<img src="placeholder.jpg" id="u5"/>
-				<img src="placeholder.jpg" id="u6"/>
+				<img src="http://i.istockimg.com/image-zoom/65546289/3/380/251/stock-photo-65546289-kitten-and-puppy.jpg" />
+				<img src="http://i.istockimg.com/image-zoom/58043196/3/380/253/stock-photo-58043196-aww-it-s-so-cute.jpg" />
+				<img src="http://i.istockimg.com/image-zoom/55448136/3/380/253/stock-photo-55448136-adult-and-puppy-dog-playing-and-biting.jpg" />
+				<img src="http://i.istockimg.com/image-zoom/54708112/3/380/252/stock-photo-54708112-playful-pup.jpg" />
+				<img src="http://i.istockimg.com/image-zoom/69216437/3/380/254/stock-photo-69216437-terrier-playing-with-a-colourful-ball.jpg" />
+				<img src="http://i.istockimg.com/image-zoom/53461862/3/380/253/stock-photo-53461862-cute-puppy-celebrating-christmas.jpg" />
+				<img src="http://i.istockimg.com/image-zoom/16826923/3/380/253/stock-photo-16826923-yellow-lab-puppy-outdoors.jpg" />
 			</div>
 		</div>
 		<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
 		<script>
 
-			var $img = $('.photos img');
-			var $larr = $('#l-arrow');
-			var $rarr = $('#r-arrow');
+			var imgSize = 500 //Insert the width of the images here
 
-			addClasses();
 
-			function addClasses() {
-				$img.each(function(p) {
-					$(this).removeClass().addClass('p' + p);
-					for (i = -1; i < p; i++){
-						var $class = $(this).attr('class').replace('p','');
-						$(this).css('margin-left', 50 * $class).css('margin-top', 10 * $class).css('z-index', $img.length - p);
-					}
+			$(function() {
+				var $img = $('.photos img');
+				var $larr = $('#l-arrow');
+				var $rarr = $('#r-arrow');
+
+				addClasses();
+				setImgSize();
+
+				function addClasses() {
+					$img.each(function(p) {
+						$(this).removeClass().addClass('p' + p);
+						for (i = -1; i < p; i++){
+							var $class = $(this).attr('class').replace('p','');
+							$(this).css('margin-left', 50 * $class).css('margin-top', 10 * $class).css('z-index', $img.length - p);
+						}
+					})
+				}
+
+				function setImgSize() {
+					$img.css('max-width', imgSize).css('max-height', imgSize);
+					setArrows();
+				}
+				
+				function setArrows() {
+					var p0H = $img.first().outerHeight() / 2 - 25;
+					var p0W = $img.first().outerWidth() - 50;
+					$larr.add($rarr).css('top', p0H);
+					$rarr.css('left', p0W);
+				}
+
+				$img.on('click', function() {
+					var $prev = $(this).prevAll();
+					var arr = $.makeArray($prev);
+					arr.reverse();
+					$(arr).insertAfter('img:last');
+					$img = $('.photos img')
+					addClasses();		
 				})
-			}
 
-			$img.on('click', function() {
-				var $prev = $first = $(this).prevAll();
-				var arr = $.makeArray($prev);
-				arr.reverse();
-				$(arr).insertAfter('img:last');
-				$img = $('.photos img')
-				addClasses();		
-			})
+				$rarr.on('click', function() {
+					$('.p1').trigger('click');
+				})
 
-
+				$larr.on('click', function() {
+					$img.last().trigger('click');
+				})
+			});
 
 		</script>
 	</body>
