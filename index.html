@@ -34,10 +34,12 @@
 					}
 				})
 			}
-			
 
 			$img.on('click', function() {
-				$(this).prevAll().insertAfter('img:last');
+				var $prev = $first = $(this).prevAll();
+				var arr = $.makeArray($prev);
+				arr.reverse();
+				$(arr).insertAfter('img:last');
 				$img = $('#wrapper img')
 				addClasses();		
 			})
